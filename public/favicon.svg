@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Modern chat bubble -->
+  <path fill="#4F46E5" d="M20,15a5,5 0 0 0-5,5v45a5,5 0 0 0,5,5h25v15l15-15h20a5,5 0 0 0,5-5V20a5,5 0 0 0-5-5H20z"/>
+  <!-- Font Awesome-like graduation cap -->
+  <path fill="#FFFFFF" d="M50,30L20,45l5,2v3l25-12l25,12v-3l5-2L50,30z M50,50c-6,0-10-2-10-5v5l10,5l10-5v-5C60,48,56,50,50,50z"/>
+</svg>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Class Chat - Login</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+  <div class="container">
+    <div class="auth-container">
+      <h1>Class Chat</h1>
+      <div class="tabs">
+        <button class="tab-btn active" id="login-tab">Login</button>
+        <button class="tab-btn" id="register-tab">Register</button>
+      </div>
+     
+      <div class="auth-form active" id="login-form">
+        <h2>Login</h2>
+        <form id="login">
+          <div class="form-group">
+            <label for="login-username">Username</label>
+            <input type="text" id="login-username" name="username" required>
+          </div>
+          <div class="form-group">
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" name="password" required>
+          </div>
+          <button type="submit" class="btn">Login</button>
+        </form>
+        <div class="error-message" id="login-error"></div>
+      </div>
+     
+      <div class="auth-form" id="register-form">
+        <h2>Register</h2>
+        <form id="register">
+          <div class="form-group">
+            <label for="register-username">Username</label>
+            <input type="text" id="register-username" name="username" required>
+          </div>
+          <div class="form-group">
+            <label for="register-password">Password</label>
+            <input type="password" id="register-password" name="password" required>
+          </div>
+          <div class="form-group">
+            <label for="role">Role</label>
+            <select id="role" name="role" required>
+              <option value="student">Student</option>
+              <option value="teacher">Teacher</option>
+            </select>
+          </div>
+          <button type="submit" class="btn">Register</button>
+        </form>
+        <div class="error-message" id="register-error"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Tab switching logic
+    document.getElementById('login-tab').addEventListener('click', () => {
+      document.getElementById('login-tab').classList.add('active');
+      document.getElementById('register-tab').classList.remove('active');
+      document.getElementById('login-form').classList.add('active');
+      document.getElementById('register-form').classList.remove('active');
+    });
+   
+    document.getElementById('register-tab').addEventListener('click', () => {
+      document.getElementById('register-tab').classList.add('active');
+      document.getElementById('login-tab').classList.remove('active');
+      document.getElementById('register-form').classList.add('active');
+      document.getElementById('login-form').classList.remove('active');
+    });
+   
+    // Login form submission
+    document.getElementById('login').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const username = document.getElementById('login-username').value;
+      const password = document.getElementById('login-password').value;
+     
+      try {
+        const response = await fetch('/api/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ username, password })
+        });
+       
+        const data = await response.json();
+       
+        if (!response.ok) {
+          document.getElementById('login-error').textContent = data.error;
+          return;
+        }
+       
+        // Store user data in localStorage
+        localStorage.setItem('user', JSON.stringify(data.user));
+       
+        // Redirect to chat
+        window.location.href = '/chat';
+      } catch (err) {
+        document.getElementById('login-error').textContent = 'An error occurred';
+        console.error('Login error:', err);
+      }
+    });
+   
+    // Register form submission
+    document.getElementById('register').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const username = document.getElementById('register-username').value;
+      const password = document.getElementById('register-password').value;
+      const role = document.getElementById('role').value;
+     
+      try {
+        const response = await fetch('/api/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ username, password, role })
+        });
+       
+        const data = await response.json();
+       
+        if (!response.ok) {
+          document.getElementById('register-error').textContent = data.error;
+          return;
+        }
+       
+        // Store user data in localStorage
+        localStorage.setItem('user', JSON.stringify(data.user));
+       
+        // Redirect to chat
+        window.location.href = '/chat';
+      } catch (err) {
+        document.getElementById('register-error').textContent = 'An error occurred';
+        console.error('Registration error:', err);
+      }
+    });
+  </script>
+</body>
+</html>

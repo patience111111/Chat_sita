@@ -1,0 +1,24 @@
+{
+  "name": "chat_site",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "express": "^5.1.0",
+    "express-session": "^1.17.3",
+    "multer": "^2.0.0",
+    "mysql2": "^3.14.1",
+    "nodemon": "^3.1.9",
+    "pg": "^8.16.0",
+    "postgresql": "^0.0.1",
+    "socket.io": "^4.8.1"
+  }
+}
